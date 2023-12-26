@@ -21,6 +21,8 @@ public class PathContainer {
         maxAcceleration = speeds[1];
         trajectory = PathPlanner.loadPath(pathString, speeds[0], speeds[1]);
 
+        
+
     }
 
     public String getPathString(){

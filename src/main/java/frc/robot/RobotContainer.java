@@ -35,7 +35,7 @@ public class RobotContainer {
   sections. They are just the pieces, they hold the actions like move, return speed or anything you want.
   However the Commands are the ones that will define which actions the subsystems will do.
   */
-  RunAutonomous runAutonomous = new RunAutonomous(getSwerve(), PathLookUp.getContainer("New Path"));
+  //RunAutonomous runAutonomous = new RunAutonomous(getSwerve(), PathLookUp.getContainer("New Path"));
  CTREConfigs ctreConfigs = new CTREConfigs();
   @SuppressWarnings("rawtypes")
    SendableChooser chooser;
@@ -49,7 +49,7 @@ public class RobotContainer {
  
   //private final BoomStickSubsystem boomStickSubsystem = new BoomStickSubsystem(6);
   //private final WristSubsystem wristSubsystem = new WristSubsystem(8);
-  private final RollerSubsystem rollerSubsystem = new RollerSubsystem();
+  
   //⬇Bruno: Now that we have every robot component, we are going to declare the controllers.
   public  Joystick controllerPlayer1 = new Joystick(0);
   public  Joystick controllerPlayer2 = new Joystick(1);
@@ -69,8 +69,7 @@ public class RobotContainer {
 
    /* Subsystems */
    private final static Swerve s_Swerve = new Swerve();
-   private final PathContainer container = new PathContainer(null, null, rotationAxis, false, false);
-  
+
    
   public RobotContainer() {
 
@@ -92,13 +91,7 @@ public class RobotContainer {
       new WristCommand(wristSubsystem)
     );
     */
-    rollerSubsystem.setDefaultCommand(
-      new RollerCommand(
-        rollerSubsystem,
-        ()-> controllerPlayer2.getRawAxis(2), 
-        ()-> controllerPlayer2.getRawAxis(3)
-      )
-    );
+    
     s_Swerve.setDefaultCommand(
         new TeleopSwerve(
             s_Swerve, 
@@ -150,7 +143,32 @@ public class RobotContainer {
   
   //⬇Bruno: Right now this isn't used and we will probably change it
   public Command getAutonomousCommand() {
-    return runAutonomous;
+    // An ExampleCommand will run in autonomous
+    return (Command) chooser.getSelected();
+  }
+
+  private static double deadband(double value, double deadband) {
+    
+    if (Math.abs(value) > deadband) {
+      if (value > 0.0) {
+        return (value - deadband) / (1.0 - deadband);
+      } else {
+        return (value + deadband) / (1.0 - deadband);
+      }
+    } else {
+      return 0.0;
+    }
+
+  }
+
+  private static double modifyAxis(double value) {
+    // Deadband
+    value = deadband(value, 0.05);
+
+    // Square the axis
+    value = Math.copySign(value * value, value);
+
+    return value;
   }
 
   public  Swerve getSwerve(){

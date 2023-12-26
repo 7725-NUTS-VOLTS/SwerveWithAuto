@@ -11,8 +11,8 @@ public class PathLookUp {
         PathContainer container = null;
 
         switch(path){
-            case "path0":
-            container = new PathContainer(path, null, 1.25, true, true);
+            case "New Path":
+            container = new PathContainer("New Path", getSpeeds(SPEEDS.ONE), 1.25, true, true);
             break;
         }
         return container;
@@ -27,21 +27,18 @@ public class PathLookUp {
     }
 
     private static double[] getSpeeds(SPEEDS speeds){
-        double[] speed;
+        double[] speed = new double[6];
 
         switch(speeds){
             case ONE:
-            return speed = new double[]{1,1};
-            
-
+            speed = new double[]{1,1};
+            break;
             case TWO:
-            return speed = new double[]{2,2};
-            
+            speed = new double[]{2,2};
+            break;
             case THREE:
-            return speed = new double[]{3,3};
-           
-
-
+            speed = new double[]{3,3};
+            break;
             case FOUR:
             speed = new double[]{4,4};
             break;
@@ -51,7 +48,7 @@ public class PathLookUp {
             break;
         }
 
-        return new double[] {1,1};
+        return speed;
 
     }
 }

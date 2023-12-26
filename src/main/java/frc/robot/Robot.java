@@ -80,12 +80,11 @@ public class Robot extends TimedRobot {
     ⬇For the autonomous consider making a sendable chooser which is a menu for autonomous but don't 
     need to worry about it right now. Check it after reviewing the other test.
     */
-    /*autonomousCommand = robotContainer.getAutonomousCommand();
+    autonomousCommand = robotContainer.getAutonomousCommand();
     if (autonomousCommand != null) {
       autonomousCommand.schedule();
-    }*/
-    robotContainer.start();
-    robotContainer.autonomousInitialize();
+    }
+   
   }
 
   @Override

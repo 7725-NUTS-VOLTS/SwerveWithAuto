@@ -28,7 +28,7 @@ public class ResetTrajectory extends InstantCommand {
   public enum PoseAtTime{
     START,END;
   }
-
+  
 
   public ResetTrajectory(Swerve mSwerve, PathContainer pathContainer, PoseAtTime poseAtTime) {
     // Use addRequirements() here to declare subsystem dependencies.
